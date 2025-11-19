@@ -16,6 +16,4 @@ public interface IFabricPublicApiService
     string GetWorkloadItemDefinition(string workloadType);
 
     IEnumerable<string> GetTopicBestPractices(string topic);
-
-    Task<string> GetUserDataFunctionSamplesAsync(CancellationToken cancellationToken);
 }

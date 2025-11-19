@@ -33,7 +33,8 @@ public class FabricPublicApiSetup : IAreaSetup
 
         services.AddSingleton<GetWorkloadDefinitionCommand>();
 
-        services.AddSingleton<GetUserDataFunctionSamplesCommand>();
+        services.AddHttpClient<UserDataFunctionsCommand>();
+        services.AddSingleton<UserDataFunctionsCommand>();
     }
 
     public CommandGroup RegisterCommands(IServiceProvider serviceProvider)
@@ -86,8 +87,8 @@ public class FabricPublicApiSetup : IAreaSetup
         var getItemDefinition = serviceProvider.GetRequiredService<GetWorkloadDefinitionCommand>();
         itemDefinition.AddCommand(getItemDefinition.Name, getItemDefinition);
 
-        var getUserDataFunctionSamples = serviceProvider.GetRequiredService<GetUserDataFunctionSamplesCommand>();
-        userDataFunctionSamples.AddCommand(getUserDataFunctionSamples.Name, getUserDataFunctionSamples);
+        var userDataFunctionsCmd = serviceProvider.GetRequiredService<UserDataFunctionsCommand>();
+        userDataFunctionSamples.AddCommand(userDataFunctionsCmd.Name, userDataFunctionsCmd);
 
         return fabricPublicApis;
     }
