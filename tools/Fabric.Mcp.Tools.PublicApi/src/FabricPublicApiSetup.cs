@@ -28,6 +28,7 @@ public class FabricPublicApiSetup : IAreaSetup
         services.AddSingleton<GetPlatformApisCommand>();
 
         services.AddSingleton<GetBestPracticesCommand>();
+        services.AddSingleton<UserDataFunctionsCodeGenGetCommand>();
 
         services.AddSingleton<GetExamplesCommand>();
 
@@ -57,6 +58,10 @@ public class FabricPublicApiSetup : IAreaSetup
         var bestPractices = new CommandGroup("bestpractices", "API Examples and Best Practices - Commands for retrieving example API request/response files and implementation guidance from Microsoft Fabric's documentation repository.");
         fabricPublicApis.AddSubGroup(bestPractices);
 
+        // User Data Functions subgroup (code generation guidance)
+        var userDataFunctions = new CommandGroup("userdatafunctions", "User Data Functions Code Generation Guidance - Commands for retrieving grounded, sample-first instructions for generating Microsoft Fabric User Data Functions (UDFs) in Python.");
+        bestPractices.AddSubGroup(userDataFunctions);
+
         // Create Best Practices subgroups
         var examples = new CommandGroup("examples", "Example API Files - Commands for retrieving example API request/response files for specific Microsoft Fabric workloads from the official documentation repository.");
         bestPractices.AddSubGroup(examples);
@@ -74,6 +79,9 @@ public class FabricPublicApiSetup : IAreaSetup
 
         var getBestPractices = serviceProvider.GetRequiredService<GetBestPracticesCommand>();
         bestPractices.AddCommand(getBestPractices.Name, getBestPractices);
+
+        var getUserDataFunctionsCodeGen = serviceProvider.GetRequiredService<UserDataFunctionsCodeGenGetCommand>();
+        userDataFunctions.AddCommand(getUserDataFunctionsCodeGen.Name, getUserDataFunctionsCodeGen);
 
         var getExamples = serviceProvider.GetRequiredService<GetExamplesCommand>();
         examples.AddCommand(getExamples.Name, getExamples);
