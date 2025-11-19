@@ -32,6 +32,8 @@ public class FabricPublicApiSetup : IAreaSetup
         services.AddSingleton<GetExamplesCommand>();
 
         services.AddSingleton<GetWorkloadDefinitionCommand>();
+
+        services.AddSingleton<GetUserDataFunctionSamplesCommand>();
     }
 
     public CommandGroup RegisterCommands(IServiceProvider serviceProvider)
@@ -64,6 +66,9 @@ public class FabricPublicApiSetup : IAreaSetup
         var itemDefinition = new CommandGroup("itemdefinition", "Workload API Definitions - Commands for retrieving OpenAPI definitions and schema details for specific Microsoft Fabric workloads from the official documentation repository.");
         bestPractices.AddSubGroup(itemDefinition);
 
+        var userDataFunctionSamples = new CommandGroup("userdatafunction", "User Data Function Samples - Commands for retrieving Python sample functions for Microsoft Fabric User Data Functions from the official samples repository.");
+        bestPractices.AddSubGroup(userDataFunctionSamples);
+
         var listWorkloads = serviceProvider.GetRequiredService<ListWorkloadsCommand>();
         fabricPublicApis.AddCommand(listWorkloads.Name, listWorkloads);
         var getWorkloads = serviceProvider.GetRequiredService<GetWorkloadApisCommand>();
@@ -80,6 +85,9 @@ public class FabricPublicApiSetup : IAreaSetup
 
         var getItemDefinition = serviceProvider.GetRequiredService<GetWorkloadDefinitionCommand>();
         itemDefinition.AddCommand(getItemDefinition.Name, getItemDefinition);
+
+        var getUserDataFunctionSamples = serviceProvider.GetRequiredService<GetUserDataFunctionSamplesCommand>();
+        userDataFunctionSamples.AddCommand(getUserDataFunctionSamples.Name, getUserDataFunctionSamples);
 
         return fabricPublicApis;
     }

@@ -74,6 +74,15 @@ public class FabricPublicApiService(
         return [EmbeddedResourceProviderService.GetEmbeddedResource(topic)];
     }
 
+    public async Task<string> GetUserDataFunctionSamplesAsync(CancellationToken cancellationToken)
+    {
+        const string userDataFunctionSamplesUrl = "fabric-user-data-functions-samples/contents/PYTHON/samples-llms.txt";
+
+        _logger.LogInformation("Getting user data function samples from GitHub");
+
+        return await _resourceProviderService.GetResource(userDataFunctionSamplesUrl, cancellationToken);
+    }
+
     #endregion IFabricPublicApiService
 
     private async Task<IDictionary<string, string>> GetWorkloadSpecDefinitionsAsync(string workloadType, CancellationToken cancellationToken)
